@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário para geração de PDF</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Formulário para geração de PDF</h1>
+    <form action="/gerar_pdf" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <label for="processNumber">Número do processo:</label>
+        <input type="text" id="processNumber" name="processNumber" required>
+        <span id="processNumberError" class="error-message"></span>
+    
+        <label for="idNumber">Número do ID:</label>
+        <input type="text" id="idNumber" name="idNumber" required>
+        <span id="idNumberError" class="error-message"></span>
+    
+        <label for="addressOption">Local/Endereço de Cumprimento:</label>
+        <select id="addressOption" name="addressOption" required>
+            <option value="">Selecione uma opção</option>
+            <option value="1">O endereço consignado no rosto do mandado</option>
+            <option value="2">Outro endereço</option>
+        </select>
+        <div id="otherAddressContainer" style="display: none;">
+            <label for="otherAddress">Outro Local/Endereço de Cumprimento:</label>
+            <input type="text" id="otherAddress" name="otherAddress" class="full-width">
+        </div>
+        <span id="addressError" class="error-message"></span>
+    
+        <label for="diligenceDate">Data da diligência:</label>
+        <input type="date" id="diligenceDate" name="diligenceDate" required>
+        <span id="diligenceDateError" class="error-message"></span>
+    
+        <label for="diligenceTime">Horário da diligência:</label>
+        <input type="time" id="diligenceTime" name="diligenceTime" required>
+        <span id="diligenceTimeError" class="error-message"></span>
+    
+        <label for="diligenceType">Tipo de Diligência:</label>
+        <select id="diligenceType" name="diligenceType" required>
+            <option value="">Selecione uma opção</option>
+            <option value="Citação">Citação</option>
+            <option value="Intimação">Intimação</option>
+            <option value="Notificação">Notificação</option>
+        </select>
+        <span id="diligenceTypeError" class="error-message"></span>
+    
+        <label for="recipientName">Nome do destinatário:</label>
+        <input type="text" id="recipientName" name="recipientName" required>
+        <span id="recipientNameError" class="error-message"></span>
+
+        <label for="contrafeOption">CONTRAFÉ:</label>
+        <select id="contrafeOption" name="contrafeOption" required>
+          <option value="">Selecione uma opção</option>
+          <option value="aceitou">Aceitou a CONTRAFÉ</option>
+          <option value="recusou">Recusou a CONTRAFÉ</option>
+        </select>
+        <span id="contrafeOptionError" class="error-message"></span>
+        
+        <div id="clienteCelularFields" style="display: none;">
+            <label for="cliente">Cliente:</label>
+            <input type="text" id="cliente" name="cliente">
+                
+            <label for="celular">Celular:</label>
+            <input type="text" id="celular" name="celular">
+            <span id="clienteCelularError" class="error-message"></span>
+        </div>        
+                
+        <label for="additionalDocuments">Documentos adicionais:</label>
+        <input type="file" id="additionalDocuments" name="additionalDocuments" multiple>
+        <span id="additionalDocumentsError" class="error-message"></span>
+    
+        <div class="button-container">
+            <button type="submit">Gerar PDF</button>
+            <button type="button" onclick="clearFields()">Limpar formulário</button>
+        </div>
+    </form>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+</body>
+</html>
